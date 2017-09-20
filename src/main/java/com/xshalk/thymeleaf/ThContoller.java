@@ -17,7 +17,7 @@ public class ThContoller {
     @RequestMapping("/")
     public String hello(Map<String, Object> model){
         String welcome = "Hello ," + msg;
-        model.put("welcome", welcome);
+        model.put("hello", welcome);
         return "test";
     }
     

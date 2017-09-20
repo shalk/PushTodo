@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="cn" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8"> </meta>
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>todo list 清单</h1>
+    <ul th:each="todo: ${todos}">
+        <li><a href="/detail.html" th:href="@{/todo/view/detail?id={id}(id=${todo.id})}" th:text="${todo.name}">第一件要做的事情</a></li>
+    </ul>
+
+</body>
+
+</html>

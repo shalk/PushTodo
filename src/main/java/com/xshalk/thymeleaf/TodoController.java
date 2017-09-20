@@ -3,55 +3,35 @@ package com.xshalk.thymeleaf;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
-
-
-@RestController
-@RequestMapping("/todo")
+@Controller
+@RequestMapping("/todo/view")
 public class TodoController {
     
+    
     @Autowired
-    private TodoRepository repo;
-
-    @RequestMapping(method=RequestMethod.POST)
-    @ResponseStatus(HttpStatus.CREATED)
-    public Todo create(@RequestBody Todo todo){
-        return this.repo.save(todo);
-    }
+    private TodoRepository repository;
     
-    @RequestMapping(path="/{id}",method=RequestMethod.DELETE)
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable("id") Integer id){
-       this.repo.delete(id); 
-    }
-    
-    @RequestMapping(path="/{id}", method=RequestMethod.PUT)
-    @ResponseStatus(HttpStatus.OK)
-    public Todo modify(@PathVariable("id") Integer id, @RequestBody Todo todo) {
-       if(this.repo.exists(id)) {
-          return this.repo.save(todo);
-       }
-       return null;
-    }
-    
-    @RequestMapping(path="/{id}", method=RequestMethod.GET)
-    @ResponseStatus(HttpStatus.OK)
-    public Todo get(@PathVariable("id") Integer id) {
-      return this.repo.findOne(id);
-    }
-    
-    @RequestMapping(method=RequestMethod.GET)
-    @ResponseStatus(HttpStatus.OK)
-    public List<Todo> findAll() {
-       return (List<Todo>) this.repo.findAll(); 
+    @RequestMapping("/index")
+    public ModelAndView index() {
+        ModelAndView mav = new ModelAndView();
+        List<Todo> todos = (List<Todo>) this.repository.findAll();
+        mav.setViewName("todo/index");
+        mav.addObject("todos", todos);
+        return mav;
     }
 
+    @RequestMapping("/detail")
+    public ModelAndView detail(@RequestParam("id") Integer id) {
+        Todo todo = this.repository.findOne(id);
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("todo/detail");
+        mav.addObject("todo", todo);
+        return mav;
+    }
 
 }
