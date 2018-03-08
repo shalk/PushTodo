@@ -1,4 +1,4 @@
-package com.xshalk.thymeleaf;
+package com.xshalk.pushtodo;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;

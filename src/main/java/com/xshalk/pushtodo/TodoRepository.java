@@ -1,11 +1,10 @@
-package com.xshalk.thymeleaf;
+package com.xshalk.pushtodo;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import java.lang.String;
-import com.xshalk.thymeleaf.Todo;
 import java.util.List;
 
 public interface TodoRepository extends CrudRepository<Todo, Integer>{

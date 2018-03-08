@@ -1,4 +1,4 @@
-package com.xshalk.thymeleaf;
+package com.xshalk.pushtodo;
 
 import javax.persistence.EntityManager;
 
